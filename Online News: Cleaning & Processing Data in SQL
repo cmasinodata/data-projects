@@ -18,7 +18,7 @@ SELECT
 		THEN 'Unknown'
 		ELSE keywords
 		END AS keywords,
-	CAST(TO_CHAR(release_date::date, 'Mon dd, yyy') AS TEXT) publish_date
+	CAST(TO_CHAR(release_date::date, 'Mon dd, yyyy') AS TEXT) publish_date
 FROM articles
 WHERE SUBSTRING(article_key, 1, 4) = '1754'
 	AND (release_date LIKE '%2014%' OR release_date LIKE '%2015%')
