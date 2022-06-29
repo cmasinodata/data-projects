@@ -1,0 +1,309 @@
+#Profits by subcategory EAST
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read data as 'office_supplies'
+office_supplies = pd.read_csv("office_supplies.csv")
+
+office_supplies_notnull = office_supplies.dropna()
+
+# Select by region
+supplies_east = office_supplies_notnull[(office_supplies_notnull["Region"] == "East") & (office_supplies_notnull["Order Date"] > "2016-12-30")]
+
+supplies_east_subcategory = supplies_east.groupby("Sub-Category")["Profit"].mean()
+
+sorted_supplies_east_subcategory = supplies_east_subcategory.sort_values(ascending=False)
+
+ax = sorted_supplies_east_subcategory.plot(figsize=(12,6), kind="bar", color="maroon", fontsize=12)
+ax.set_xlabel("Sub-Category", fontsize=14)
+ax.set_ylabel("Profit", fontsize=14)
+ax.set_title("Average Profits by Sub-Category in the East Region", fontsize=18)
+plt.axhline(y=0, color='black', linestyle='-', linewidth=1)
+plt.show()
+
+
+
+#Profits by subcategory WEST
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read data as 'office_supplies'
+office_supplies = pd.read_csv("office_supplies.csv")
+
+office_supplies_notnull = office_supplies.dropna()
+
+# Select by region
+supplies_west = office_supplies_notnull[(office_supplies_notnull["Region"] == "West") & (office_supplies_notnull["Order Date"] > "2016-12-30")]
+
+supplies_west_subcategory = supplies_west.groupby("Sub-Category")["Profit"].mean()
+
+sorted_supplies_west_subcategory = supplies_west_subcategory.sort_values(ascending=False)
+
+print(supplies_west.sort_values("Order Date"))
+
+ax = sorted_supplies_west_subcategory.plot(figsize=(12,6), kind="bar", color="goldenrod", fontsize=12)
+ax.set_xlabel("Sub-Category", fontsize=14)
+ax.set_ylabel("Profit", fontsize=14)
+ax.set_title("Average Profits by Sub-Category in the West Region", fontsize=18)
+plt.axhline(y=0, color='black', linestyle='-', linewidth=1)
+plt.show()
+
+
+
+#Profits by subcategory SOUTH
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read data as 'office_supplies'
+office_supplies = pd.read_csv("office_supplies.csv")
+
+office_supplies_notnull = office_supplies.dropna()
+
+# Select by region
+supplies_south = office_supplies_notnull[(office_supplies_notnull["Region"] == "South") & (office_supplies_notnull["Order Date"] > "2016-12-30")]
+
+supplies_south_subcategory = supplies_south.groupby("Sub-Category")["Profit"].mean()
+
+sorted_supplies_south_subcategory = supplies_south_subcategory.sort_values(ascending=False)
+
+print(supplies_south.sort_values("Order Date"))
+
+ax = sorted_supplies_east_subcategory.plot(figsize=(12,6), kind="bar", color="seagreen", fontsize=12)
+ax.set_xlabel("Sub-Category", fontsize=14)
+ax.set_ylabel("Profit", fontsize=14)
+ax.set_title("Average Profits by Sub-Category in the South Region", fontsize=18)
+plt.axhline(y=0, color='black', linestyle='-', linewidth=1)
+plt.show()
+
+
+
+#Profits by subcategory CENTRAL
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read data as 'office_supplies'
+office_supplies = pd.read_csv("office_supplies.csv")
+
+office_supplies_notnull = office_supplies.dropna()
+
+# Select by region
+supplies_central = office_supplies_notnull[(office_supplies_notnull["Region"] == "Central") & (office_supplies_notnull["Order Date"] > "2016-12-30")]
+
+supplies_central_subcategory = supplies_central.groupby("Sub-Category")["Profit"].mean()
+
+sorted_supplies_central_subcategory = supplies_central_subcategory.sort_values(ascending=False)
+
+print(supplies_central.sort_values("Order Date"))
+
+ax = sorted_supplies_central_subcategory.plot(figsize=(12,6), kind="bar", color="navy",fontsize=12)
+ax.set_xlabel("Sub-Category", fontsize=14)
+ax.set_ylabel("Profit", fontsize=14)
+ax.set_title("Average Profits by Sub-Category in the Central Region", fontsize=18)
+plt.axhline(y=0, color='black', linestyle='-', linewidth=1)
+plt.show()
+
+
+
+#Profits by subcategory EAST
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read data as 'office_supplies'
+office_supplies = pd.read_csv("office_supplies.csv")
+
+office_supplies_notnull = office_supplies.dropna(subset=["Quantity"])
+
+# Select by region
+supplies_east = office_supplies_notnull[office_supplies_notnull["Region"] == "East"]
+
+# Filter by year
+supplies_east_2014 = supplies_east[(supplies_east["Order Date"] >= "2014-01-01") & (supplies_east["Order Date"] <= "2014-12-31")]
+
+supplies_east_2015 = supplies_east[(supplies_east["Order Date"] >= "2015-01-01") & (supplies_east["Order Date"] <= "2015-12-31")]
+
+supplies_east_2016 = supplies_east[(supplies_east["Order Date"] >= "2016-01-01") & (supplies_east["Order Date"] <= "2016-12-31")]
+
+supplies_east_2017 = supplies_east[(supplies_east["Order Date"] >= "2017-01-01") & (supplies_east["Order Date"] <= "2017-12-31")]
+
+# Group by Sub-Category
+supplies_east_2014_grouped = supplies_east_2014.groupby("Sub-Category")["Quantity"].sum()
+supplies_east_2015_grouped = supplies_east_2015.groupby("Sub-Category")["Quantity"].sum()
+supplies_east_2016_grouped = supplies_east_2016.groupby("Sub-Category")["Quantity"].sum()
+supplies_east_2017_grouped = supplies_east_2017.groupby("Sub-Category")["Quantity"].sum()
+
+#Visualize results
+subcategory = ['Accessories', 'Appliances', 'Art', 'Binders', 'Bookcases', 'Chairs', 'Copiers', 'Envelopes', 'Fasteners', 'Furnishings', 'Labels', 'Machines', 'Paper', 'Phones', 'Storage', 'Supplies', 'Tables']
+
+x_axis = np.arange(len(subcategory))
+
+fig, ax = plt.subplots(figsize=(12,8))
+
+plt.bar(x_axis -0.3, supplies_east_2014_grouped, width=0.2, label = "2014")
+plt.bar(x_axis -0.1, supplies_east_2015_grouped, width=0.2, label = "2015")
+plt.bar(x_axis +0.1, supplies_east_2016_grouped, width=0.2, label = "2016")
+plt.bar(x_axis +0.3, supplies_east_2017_grouped, width=0.2, label = "2017")
+
+
+plt.xticks(x_axis, subcategory, rotation = 90, fontsize=12)
+plt.xlabel("Sub-Category", fontsize=14)
+plt.ylabel("Quantity", fontsize=14)
+plt.title("Quantity of Items Sold from 2014 - 2017 in the East Region", fontsize=18)
+
+plt.legend(prop={"size": 14})
+
+
+
+#Profits by subcategory WEST
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read data as 'office_supplies'
+office_supplies = pd.read_csv("office_supplies.csv")
+
+office_supplies_notnull = office_supplies.dropna(subset=["Quantity"])
+
+# Select by region
+supplies_west = office_supplies_notnull[office_supplies_notnull["Region"] == "West"]
+
+# Filter by year
+supplies_west_2014 = supplies_west[(supplies_west["Order Date"] >= "2014-01-01") & (supplies_west["Order Date"] <= "2014-12-31")]
+
+supplies_west_2015 = supplies_west[(supplies_west["Order Date"] >= "2015-01-01") & (supplies_west["Order Date"] <= "2015-12-31")]
+
+supplies_west_2016 = supplies_west[(supplies_west["Order Date"] >= "2016-01-01") & (supplies_west["Order Date"] <= "2016-12-31")]
+
+supplies_west_2017 = supplies_west[(supplies_west["Order Date"] >= "2017-01-01") & (supplies_west["Order Date"] <= "2017-12-31")]
+
+# Group by Sub-Category
+supplies_west_2014_grouped = supplies_west_2014.groupby("Sub-Category")["Quantity"].sum()
+supplies_west_2015_grouped = supplies_west_2015.groupby("Sub-Category")["Quantity"].sum()
+supplies_west_2016_grouped = supplies_west_2016.groupby("Sub-Category")["Quantity"].sum()
+supplies_west_2017_grouped = supplies_west_2017.groupby("Sub-Category")["Quantity"].sum()
+
+#Visualize results
+subcategory = ['Accessories', 'Appliances', 'Art', 'Binders', 'Bookcases', 'Chairs', 'Copiers', 'Envelopes', 'Fasteners', 'Furnishings', 'Labels', 'Machines', 'Paper', 'Phones', 'Storage', 'Supplies', 'Tables']
+
+x_axis = np.arange(len(subcategory))
+
+fig, ax = plt.subplots(figsize=(12,8))
+
+plt.bar(x_axis -0.3, supplies_west_2014_grouped, width=0.2, label = "2014")
+plt.bar(x_axis -0.1, supplies_west_2015_grouped, width=0.2, label = "2015")
+plt.bar(x_axis +0.1, supplies_west_2016_grouped, width=0.2, label = "2016")
+plt.bar(x_axis +0.3, supplies_west_2017_grouped, width=0.2, label = "2017")
+
+plt.xticks(x_axis, subcategory, rotation = 90, fontsize=12)
+plt.xlabel("Sub-Category", fontsize=14)
+plt.ylabel("Quantity", fontsize=14)
+plt.title("Quantity of Items Sold from 2014 - 2017 in the West Region", fontsize=18)
+
+plt.legend(prop={"size": 14})
+
+
+
+#Profits by subcategory SOUTH
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read data as 'office_supplies'
+office_supplies = pd.read_csv("office_supplies.csv")
+
+office_supplies_notnull = office_supplies.dropna(subset=["Quantity"])
+
+copier_2014 = {'Order Date': '2014-01-01', 'Region': 'South', 'Sub-Category': 'Copiers', 'Quantity': 0}
+office_supplies_notnull = office_supplies_notnull.append(copier_2014, ignore_index = True)
+
+# Select by region
+supplies_south = office_supplies_notnull[office_supplies_notnull["Region"] == "South"]
+
+# Filter by year
+supplies_south_2014 = supplies_south[(supplies_south["Order Date"] >= "2014-01-01") & (supplies_south["Order Date"] <= "2014-12-31")]
+
+supplies_south_2015 = supplies_south[(supplies_south["Order Date"] >= "2015-01-01") & (supplies_south["Order Date"] <= "2015-12-31")]
+
+supplies_south_2016 = supplies_south[(supplies_south["Order Date"] >= "2016-01-01") & (supplies_south["Order Date"] <= "2016-12-31")]
+
+supplies_south_2017 = supplies_south[(supplies_south["Order Date"] >= "2017-01-01") & (supplies_south["Order Date"] <= "2017-12-31")]
+
+# Group by Sub-Category
+supplies_south_2014_grouped = supplies_south_2014.groupby("Sub-Category")["Quantity"].sum()
+supplies_south_2015_grouped = supplies_south_2015.groupby("Sub-Category")["Quantity"].sum()
+supplies_south_2016_grouped = supplies_south_2016.groupby("Sub-Category")["Quantity"].sum()
+supplies_south_2017_grouped = supplies_south_2017.groupby("Sub-Category")["Quantity"].sum()
+
+#Visualize results
+subcategory = ['Accessories', 'Appliances', 'Art', 'Binders', 'Bookcases', 'Chairs', 'Copiers', 'Envelopes', 'Fasteners', 'Furnishings', 'Labels', 'Machines', 'Paper', 'Phones', 'Storage', 'Supplies', 'Tables']
+
+x_axis = np.arange(len(subcategory))
+
+fig, ax = plt.subplots(figsize=(12,8))
+
+plt.bar(x_axis -0.3, supplies_south_2014_grouped, width=0.2, label = "2014")
+plt.bar(x_axis -0.1, supplies_south_2015_grouped, width=0.2, label = "2015")
+plt.bar(x_axis +0.1, supplies_south_2016_grouped, width=0.2, label = "2016")
+plt.bar(x_axis +0.3, supplies_south_2017_grouped, width=0.2, label = "2017")
+
+plt.xticks(x_axis, subcategory, rotation = 90, fontsize=12)
+plt.xlabel("Sub-Category", fontsize=14)
+plt.ylabel("Quantity", fontsize=14)
+plt.title("Quantity of Items Sold from 2014 - 2017 in the South Region", fontsize=18)
+
+plt.legend(prop={"size": 14})
+
+
+
+#Profits by subcategory CENTRAL
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read data as 'office_supplies'
+office_supplies = pd.read_csv("office_supplies.csv")
+
+office_supplies_notnull = office_supplies.dropna(subset=["Quantity"])
+
+copier_2016 = {'Order Date': '2016-01-01', 'Region': 'Central', 'Sub-Category': 'Copiers', 'Quantity': 0}
+office_supplies_notnull = office_supplies_notnull.append(copier_2016, ignore_index = True)
+
+copier_2017 = {'Order Date': '2017-01-01', 'Region': 'Central', 'Sub-Category': 'Copiers', 'Quantity': 0}
+office_supplies_notnull = office_supplies_notnull.append(copier_2017, ignore_index = True)
+
+# Select by region
+supplies_central = office_supplies_notnull[office_supplies_notnull["Region"] == "Central"]
+
+# Filter by year
+supplies_central_2014 = supplies_central[(supplies_central["Order Date"] >= "2014-01-01") & (supplies_central["Order Date"] <= "2014-12-31")]
+
+supplies_central_2015 = supplies_central[(supplies_central["Order Date"] >= "2015-01-01") & (supplies_central["Order Date"] <= "2015-12-31")]
+
+supplies_central_2016 = supplies_central[(supplies_central["Order Date"] >= "2016-01-01") & (supplies_central["Order Date"] <= "2016-12-31")]
+
+supplies_central_2017 = supplies_central[(supplies_central["Order Date"] >= "2017-01-01") & (supplies_central["Order Date"] <= "2017-12-31")]
+
+# Group by Sub-Category
+supplies_central_2014_grouped = supplies_central_2014.groupby("Sub-Category")["Quantity"].sum()
+supplies_central_2015_grouped = supplies_central_2015.groupby("Sub-Category")["Quantity"].sum()
+supplies_central_2016_grouped = supplies_central_2016.groupby("Sub-Category")["Quantity"].sum()
+supplies_central_2017_grouped = supplies_central_2017.groupby("Sub-Category")["Quantity"].sum()
+
+#Visualize results
+subcategory = ['Accessories', 'Appliances', 'Art', 'Binders', 'Bookcases', 'Chairs', 'Copiers', 'Envelopes', 'Fasteners', 'Furnishings', 'Labels', 'Machines', 'Paper', 'Phones', 'Storage', 'Supplies', 'Tables']
+
+x_axis = np.arange(len(subcategory))
+
+fig, ax = plt.subplots(figsize=(12,8))
+
+plt.bar(x_axis -0.3, supplies_central_2014_grouped, width=0.2, label = "2014")
+plt.bar(x_axis -0.1, supplies_central_2015_grouped, width=0.2, label = "2015")
+plt.bar(x_axis +0.1, supplies_central_2016_grouped, width=0.2, label = "2016")
+plt.bar(x_axis +0.3, supplies_central_2017_grouped, width=0.2, label = "2017")
+
+plt.xticks(x_axis, subcategory, rotation = 90, fontsize=12)
+plt.xlabel("Sub-Category", fontsize=14)
+plt.ylabel("Quantity", fontsize=14)
+plt.title("Quantity of Items Sold from 2014 - 2017 in the Central Region", fontsize=18)
+
+plt.legend(prop={"size": 14})
